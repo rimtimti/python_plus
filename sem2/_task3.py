@@ -5,22 +5,14 @@
 # Попробуйте избежать дублирования кода в преобразованиях к разным системам счисления
 # Избегайте магических чисел
 # Добавьте аннотацию типов где это возможно
-import pyth
 
-def convert_number_to_number_system(number: int, system: int) -> str:
-    '''
-    Возвращает десятичное число в нужной системе счисления, максимальная система счисления - 36
-    '''
-    digits = '0123456789abcdefghijklmnopqrstuvwxyz'
-    if system > len(digits): return None
-    result = ''
-    while number > 0:
-        result = digits[number % system] + result
-        number //= system
-    return result
+import defs
 
-NUMBER = 42
-SYSTEM_NUMBER = 18
+MIN_NUMBER = 0
+MAX_NUMBER = 2147483647
 
-print(convert_number_to_number_system(NUMBER, SYSTEM_NUMBER))
-print(int(str(convert_number_to_number_system(NUMBER, SYSTEM_NUMBER)), SYSTEM_NUMBER))
+number = defs.get_natural_int_between_number(f'Введите число от {MIN_NUMBER} до {MAX_NUMBER}: ', MIN_NUMBER, MAX_NUMBER)
+SYSTEM = 2
+print(f'Число {number} в системе счисления {SYSTEM} = {defs.convert_number_to_number_system(number, SYSTEM)}', f'через встроенную функцию = {bin(number)[2:]}')
+SYSTEM = 8
+print(f'Число {number} в системе счисления {SYSTEM} = {defs.convert_number_to_number_system(number, SYSTEM)}', f'через встроенную функцию = {oct(number)[2:]}')
