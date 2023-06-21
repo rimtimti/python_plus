@@ -1,0 +1,39 @@
+# Напишите декоратор, который сохраняет в json файл параметры декорируемой функции и результат, который она возвращает.
+# При повторном вызове файл должен расширяться, а не перезаписываться.
+# Каждый ключевой параметр сохраните как отдельный ключ json словаря.
+# Для декорирования напишите функцию, которая может принимать как позиционные, так и ключевые аргументы.
+# Имя файла должно совпадать с именем декорируемой функции.
+import json
+from typing import Callable
+from pathlib import Path
+
+
+def deco_json(func: Callable):
+    filename = Path(f'{func.__name__}.json')
+    filename.touch(exist_ok=True)
+    with open(filename, 'r') as f:
+        try:
+            final_dict = json.load(f)
+        except:
+            final_dict = {}
+
+    def wrapper(*args, **kwargs):
+        res = func(*args, **kwargs)
+        final_dict.update({str(res): args})
+        final_dict.update({**kwargs})
+        with open(f'{func.__name__}.json', 'w') as f:
+            json.dump(final_dict, f, indent=2)
+
+    return wrapper
+
+
+@deco_json
+def multy(a: int, b: int, *args, **kwargs) -> int:
+    return a * b
+
+
+if __name__ == '__main__':
+    multy(2, 5)
+    multy(3, 5)
+    multy(36, 55)
+    multy(36, 554)
