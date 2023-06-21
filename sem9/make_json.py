@@ -13,16 +13,16 @@ def deco_json(func: Callable):
     filename.touch(exist_ok=True)
     with open(filename, 'r') as f:
         try:
-            final_dict = json.load(f)
+            dict_result = json.load(f)
         except:
-            final_dict = {}
+            dict_result = {}
 
     def wrapper(*args, **kwargs):
         res = func(*args, **kwargs)
-        final_dict.update({str(res): args})
-        final_dict.update({**kwargs})
+        dict_result.update({str(res): args})
+        dict_result.update({**kwargs})
         with open(f'{func.__name__}.json', 'w') as f:
-            json.dump(final_dict, f, indent=2)
+            json.dump(dict_result, f, indent=2)
 
     return wrapper
 
