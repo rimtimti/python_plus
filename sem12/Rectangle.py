@@ -4,7 +4,8 @@
 
 
 # Доработаем прямоугольник и добавим экономию памяти для хранения свойств экземпляра без словаря __dict__
-VALUE_ERROR = 'Сторона не может быть отрицательной'
+# VALUE_ERROR = 'Сторона не может быть отрицательной'
+from errors import PositiveValueError
 
 class Rectangle:
     '''Класс прямоугольник, с методами расчета периметра и площади фигуры.'''
@@ -30,14 +31,14 @@ class Rectangle:
         if value > 0:
             self._a = value
         else:
-            raise ValueError(VALUE_ERROR)
+            raise PositiveValueError(value)
 
     @b.setter
     def b(self, value):
         if value > 0:
             self._b = value
         else:
-            raise ValueError(VALUE_ERROR)
+            raise PositiveValueError(value)
 
     def perimeter(self):
         '''Метод расчета периметра прямоугольника.'''
@@ -70,15 +71,14 @@ if __name__ == '__main__':
     rect_1 = Rectangle(2, 5)
     # rect_2 = Rectangle(5, 10)
     print(rect_1.a)
-
-print(rect_1.b)
-# rect_1.a = -1
-rect_1.a = 10
-print(rect_1)
-# print(rect_2)
-# # print(f'{rect.perimeter()= } {rect.area()= }')
-# # print(f'{rect_1.perimeter()= } {rect_1.area()= }')
-# res_sum = rect_1 + rect_2
-# print(res_sum.a, res_sum.b)
-# res_sub = rect_1 - rect_2
-# print(res_sub.a, res_sub.b)
+    print(rect_1.b)
+    rect_1.a = -1
+    # rect_1.a = 10
+    print(rect_1)
+    # print(rect_2)
+    # # print(f'{rect.perimeter()= } {rect.area()= }')
+    # # print(f'{rect_1.perimeter()= } {rect_1.area()= }')
+    # res_sum = rect_1 + rect_2
+    # print(res_sum.a, res_sum.b)
+    # res_sub = rect_1 - rect_2
+    # print(res_sub.a, res_sub.b)

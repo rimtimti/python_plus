@@ -6,6 +6,12 @@
 # ○ сложения,
 # ○ *умножения матриц
 
+# ВОПРОС
+# from sem13.errors import * Почему у меня не получается вот такой импорт?
+# В Java нормально работало.
+
+from errors import MatrixExistsError, MatrixNoneError, MatricesDifferentSizeError, MatrixMultiplicationError
+
 
 class Matrix:
     '''
@@ -32,42 +38,62 @@ class Matrix:
         Переопределённый метод для сравнения матриц.
         Матрицы могут быть равны когда равны их длины и каждый элемент
         '''
+        self = self.matrix_exist()
+        other = other.matrix_exist()
         return self.matrix == other.matrix
 
     def __add__(self, other):
         '''
         Переопределённый метод поэлементного сложения матриц.
-        Можно складывать только матрицы одинаковой размерности
+        Можно складывать только матрицы одинаковой размерности.
         '''
+        self = self.matrix_exist()
+        other = other.matrix_exist()
         if len(self.matrix) == len(other.matrix) and set(len(i) for i in self.matrix) == set(len(i) for i in other.matrix):
             result = [map(sum, zip(*i))
                       for i in zip(self.matrix, other.matrix)]
         else:
-            result = [['Сложение'], ['этих матриц'], ['невозможно']]
+            raise MatricesDifferentSizeError(self, other)
         return Matrix(result)
 
     def __mul__(self, other):
         '''
         Переопределенный метод умножения матриц.
-        Можно умножать матрицы при одинаковой длине строк в первой и столбцов во второй
+        Можно умножать матрицы при одинаковой длине строк в первой и столбцов во второй.
         '''
-        result = [[0]*len(other.matrix[0]) for _ in range(len(self.matrix))]
-        for i in range(len(self.matrix)):
-            for j in range(len(other.matrix[0])):
-                for k in range(len(other.matrix)):
-                    result[i][j] += self.matrix[i][k] * other.matrix[k][j]
+        self = self.matrix_exist()
+        other = other.matrix_exist()
+        if len(other.matrix) == len(self.matrix[0]):
+            
+            result = [[0]*len(other.matrix[0]) for _ in range(len(self.matrix))]
+            for i in range(len(self.matrix)):
+                for j in range(len(other.matrix[0])):
+                    for k in range(len(other.matrix)):
+                        result[i][j] += self.matrix[i][k] * other.matrix[k][j]
+        else:
+            raise MatrixMultiplicationError(self, other)
 # Решение через zip
         # result = [[sum(a * b for a, b in zip(Arow, Bcol)) for Bcol in zip(*other.matrix)] for Arow in self.matrix]
         return Matrix(result)
+
+    def matrix_exist(self):
+        if len(set([len(item) for item in self.matrix])) != 1:
+            raise MatrixExistsError(self.matrix)
+        elif None in set([j for i in [*self.matrix] for j in i]):
+            raise MatrixNoneError(self.matrix)
+        else:
+            return Matrix(self.matrix)
 
 
 if __name__ == '__main__':
     matrix_1 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     matrix_2 = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    sum_matrix = matrix_1 + matrix_2
-    print(sum_matrix)
     matrix_3 = Matrix([[2, 2, 2], [2, 2, 2]])
     matrix_4 = Matrix([[3, 3], [3, 3], [3, 3]])
-    mul_matrix = matrix_3 * matrix_4
-    print(mul_matrix)
+
+    print(matrix_1 + matrix_2)
+    # print(matrix_1 + matrix_4)
+    print(matrix_3 * matrix_4)
+    # print(matrix_4 * matrix_2)
     print(matrix_1 == matrix_2)
+    # print(matrix_3 + matrix_4)
