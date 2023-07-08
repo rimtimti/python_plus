@@ -7,6 +7,22 @@ class CustomException(Exception):
     pass
 
 
+class LevelError(CustomException):
+    def __init__(self, value: int):
+        self.value = value
+
+    def __str__(self):
+        return f'ОТКАЗ ДОСТУПА. Ваш уровень ниже {self.value}'
+
+
+class AccessError(CustomException):
+    def __init__(self, User):
+        self.user_id = User.user_id
+        self.name = User.name
+
+    def __str__(self):
+        return f'Пользователь (ID = {self.user_id} Имя = {self.name}) в базе не найден.'
+
 class MatrixExistsError(CustomException):
     def __init__(self, matrix: list[list[int]]):
         self.matrix = matrix
@@ -41,3 +57,10 @@ class MatrixMultiplicationError(CustomException):
     def __str__(self):
         return f'\n{self.matrix1}\n{self.matrix2}\nМатрицы такого размера нельзя переморжать !\n'\
             f'Можно умножать матрицы при одинаковой длине строк в первой и столбцов во второй.'
+
+class PositiveValueError(CustomException):
+    def __init__(self, value: int):
+        self.value = value
+
+    def __str__(self):
+        return f'Значение должно быть положительное, а не {self.value} !'

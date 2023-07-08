@@ -5,7 +5,10 @@
 
 # Доработаем прямоугольник и добавим экономию памяти для хранения свойств экземпляра без словаря __dict__
 # VALUE_ERROR = 'Сторона не может быть отрицательной'
-from errors import PositiveValueError
+
+import sys
+sys.path.insert(1, '../python_plus')
+import errors
 
 class Rectangle:
     '''Класс прямоугольник, с методами расчета периметра и площади фигуры.'''
@@ -31,14 +34,14 @@ class Rectangle:
         if value > 0:
             self._a = value
         else:
-            raise PositiveValueError(value)
+            raise errors.PositiveValueError(value)
 
     @b.setter
     def b(self, value):
         if value > 0:
             self._b = value
         else:
-            raise PositiveValueError(value)
+            raise errors.PositiveValueError(value)
 
     def perimeter(self):
         '''Метод расчета периметра прямоугольника.'''

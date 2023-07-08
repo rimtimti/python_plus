@@ -6,11 +6,9 @@
 # ○ сложения,
 # ○ *умножения матриц
 
-# ВОПРОС
-# from sem13.errors import * Почему у меня не получается вот такой импорт?
-# В Java нормально работало.
-
-from errors import MatrixExistsError, MatrixNoneError, MatricesDifferentSizeError, MatrixMultiplicationError
+import sys
+sys.path.insert(1, '../python_plus')
+import errors
 
 
 class Matrix:
@@ -53,7 +51,7 @@ class Matrix:
             result = [map(sum, zip(*i))
                       for i in zip(self.matrix, other.matrix)]
         else:
-            raise MatricesDifferentSizeError(self, other)
+            raise errors.MatricesDifferentSizeError(self, other)
         return Matrix(result)
 
     def __mul__(self, other):
@@ -71,16 +69,16 @@ class Matrix:
                     for k in range(len(other.matrix)):
                         result[i][j] += self.matrix[i][k] * other.matrix[k][j]
         else:
-            raise MatrixMultiplicationError(self, other)
+            raise errors.MatrixMultiplicationError(self, other)
 # Решение через zip
         # result = [[sum(a * b for a, b in zip(Arow, Bcol)) for Bcol in zip(*other.matrix)] for Arow in self.matrix]
         return Matrix(result)
 
     def matrix_exist(self):
         if len(set([len(item) for item in self.matrix])) != 1:
-            raise MatrixExistsError(self.matrix)
+            raise errors.MatrixExistsError(self.matrix)
         elif None in set([j for i in [*self.matrix] for j in i]):
-            raise MatrixNoneError(self.matrix)
+            raise errors.MatrixNoneError(self.matrix)
         else:
             return Matrix(self.matrix)
 

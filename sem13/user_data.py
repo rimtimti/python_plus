@@ -14,7 +14,10 @@
 #   Если уровень пользователя меньше, чем ваш уровень, вызывайте исключение уровня доступа.
 
 import json
-from errors import LevelError, AccessError
+
+import sys
+sys.path.insert(1, '../python_plus')
+import errors
 
 FILE_NAME = 'sem13//data.json'
 
@@ -61,11 +64,11 @@ class Access:
                 if temp_user == user:
                     temp_user.level = user.level
         else:
-            raise AccessError(temp_user)
+            raise errors.AccessError(temp_user)
         if enter_level <= temp_user.level:
             return f'ДОСТУП РАЗРЕШЕН: {temp_user}'
         else:
-            raise LevelError(enter_level)
+            raise errors.LevelError(enter_level)
 
 if __name__ == '__main__':
     access = Access()
