@@ -8,7 +8,8 @@
 # ✔ При превышении суммы в 5 млн, вычитать налог на богатство 10% перед каждой операцией, даже ошибочной
 # ✔ Любое действие выводит сумму денег
 
-import defs
+import pytest
+
 
 class Bank:
     _BALANCE = 0
@@ -49,20 +50,20 @@ class Bank:
 
     def _check_operation(self) -> int:
         self._COUNTER += 1
-        cash = defs.get_natural_int_between_number(f'Введите сумму от {self._MIN_CASH:_} до {self._MAX_CASH:_}: ', self._MIN_CASH, self._MAX_CASH)
+        cash = self.get_natural_int_between_number(
+            f'Введите сумму от {self._MIN_CASH:_} до {self._MAX_CASH:_}: ', self._MIN_CASH, self._MAX_CASH)
         if cash % self._MIN_CASH != 0:
             print(f'Введена сумма, которая не кратна {self._MIN_CASH:_}')
             return self._check_operation()
         return cash
 
-    def _check_tax(self):
+    def _check_tax(self) -> None:
         if self._BALANCE >= self._SUM_FOR_TAX:
             tax = int(round(self._BALANCE * self._TAX))
             self._BALANCE -= tax
             text = f'Внимание был снят {round(self._TAX * 100)} % налог на богатство в размере {tax:_}, баланс: {self._BALANCE:_}'
             self._HISTORY.append(text)
             print(text)
-
 
     def _exit(self):
         print('\nВсего доброго, приходите к нам еще')
@@ -92,19 +93,36 @@ class Bank:
         for i in self._HISTORY:
             print(i)
 
+    def get_natural_int_between_number(self, text: str, number_min: int, number_max: int) -> int:
+        '''
+        Просит у пользователя ввести целое число между min и max и проверяет ввод
+        '''
+        try:
+            number_int = int(input(text))
+            if number_int >= number_min and number_int <= number_max:
+                return number_int
+            else:
+                print('Неверный ввод числа!!!')
+                return self.get_natural_int_between_number(self, text, number_min, number_max)
+        except ValueError:
+            print('Неверный ввод числа!!!')
+            return self.get_natural_int_between_number(self, text, number_min, number_max)
+
     def start(self):
         '''
         Основная логика программы
         '''
-        print('\nЭто программа "Банкомат".\nВы можете пополнять баланс и снимать со счета.\n')
-        print(f'Сумма пополнения и снятия кратны {self._MIN_CASH:_} у.е.\n' \
-        f'Маскимально можно положить на счет {self._MAX_CASH} у.е.\n' \
-        f'Процент за снятие — {self._COMMISSION * 100}% от суммы снятия, но не менее {self._MIN_COMMISSION:_} и не более {self._MAX_COMMISSION:_} у.е.\n' \
-        f'После каждой {self._BONUS_OPERATION} операции пополнения или снятия начисляются проценты - {self._BONUS * 100}%\n' \
-        f'При превышении суммы в {self._SUM_FOR_TAX:_}, вычитается налог на богатство {self._TAX * 100}% перед каждой операцией, даже ошибочной')
+        print(
+            '\nЭто программа "Банкомат".\nВы можете пополнять баланс и снимать со счета.\n')
+        print(f'Сумма пополнения и снятия кратны {self._MIN_CASH:_} у.е.\n'
+              f'Маскимально можно положить на счет {self._MAX_CASH} у.е.\n'
+              f'Процент за снятие — {self._COMMISSION * 100}% от суммы снятия, но не менее {self._MIN_COMMISSION:_} и не более {self._MAX_COMMISSION:_} у.е.\n'
+              f'После каждой {self._BONUS_OPERATION} операции пополнения или снятия начисляются проценты - {self._BONUS * 100}%\n'
+              f'При превышении суммы в {self._SUM_FOR_TAX:_}, вычитается налог на богатство {self._TAX * 100}% перед каждой операцией, даже ошибочной')
         while True:
             print(f'\nВаш баланс: {self._BALANCE:_}')
-            choice = self._menu('\nОСНОВНОЕ МЕНЮ:\n1 - пополнить баланс\n2 - снять средства\n3 - показать историю операций\n4 - выход', ['1', '2', '3', '4'])
+            choice = self._menu(
+                '\nОСНОВНОЕ МЕНЮ:\n1 - пополнить баланс\n2 - снять средства\n3 - показать историю операций\n4 - выход', ['1', '2', '3', '4'])
             match choice:
                 case '4':
                     self._exit()
@@ -121,7 +139,7 @@ class Bank:
                     self._add_bonus()
                 case '2':
                     self._check_tax()
-                    cash = self._check_operation()                    
+                    cash = self._check_operation()
                     commission = self._check_commission(cash=cash)
                     data = self._out(cash=cash, commission=commission)
                     if data:
@@ -130,7 +148,24 @@ class Bank:
                         print(text)
                         self._add_bonus()
                     else:
-                        print('У Вас недостаточно средств для проведения данной операции')
+                        print(
+                            'У Вас недостаточно средств для проведения данной операции')
 
-bank = Bank()
-bank.start()
+
+@pytest.fixture()
+def make_bank():
+    return Bank()
+
+
+def test_in(make_bank):
+    assert make_bank._in(10000) == 10000
+
+
+def test_out(make_bank):
+    assert make_bank._out(5000, 1000) == -6000
+
+
+if __name__ == '__main__':
+    # bank = Bank()
+    # bank.start()
+    pytest.main(['-v'])
