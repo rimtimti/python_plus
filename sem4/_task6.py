@@ -7,7 +7,7 @@ def sum_number_between_min_max(numbers: list[int], index_min: int, index_max: in
     Вернуть сумму чисел между между переданными индексами. Если индекс выходит за пределы списка, сумма считается до конца и/или начала списка.
     '''
     if index_min > index_max:
-        return sum_numbers(numbers, index_max, index_min)
+        return sum_number_between_min_max(numbers, index_max, index_min)
     if index_min < 0:
         index_min = 0
     if index_max > len(numbers) - 1:
