@@ -1,6 +1,6 @@
 # Напишите функцию для транспонирования матрицы
 
-def transpose_matrix(*array: list[int]) -> list[()] | str:
+def transpose_matrix(*array: list[int]) -> list | str:
     '''
     Транспонирует матрицу, если это возможно
     '''

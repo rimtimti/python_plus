@@ -8,11 +8,9 @@
 
 import sys
 sys.path.insert(1, '../python_plus')
-import errors
 
-# Добавьте логирование ошибок и полезной информации. Также реализуйте возможность запуска из командной строки с передачей параметров.
+# Добавьте логирование ошибок и полезной информации.
 
-import argparse
 import logging
 
 logging.basicConfig(style="{", filename='matrix_info.log',
@@ -61,7 +59,8 @@ class Matrix:
         self = self.matrix_exist()
         other = other.matrix_exist()
         if len(self.matrix) == len(other.matrix) and set(len(i) for i in self.matrix) == set(len(i) for i in other.matrix):
-            result = [map(sum, zip(*i)) for i in zip(self.matrix, other.matrix)]
+            result = [map(sum, zip(*i))
+                      for i in zip(self.matrix, other.matrix)]
             logger.info(f'Матрицы: {self.matrix} и {other.matrix} - можно сложить. Результат = {Matrix(result)}')
         else:
             logger.error(f'Матрицы нельзя сложить: {self.matrix} и {other.matrix}')
@@ -103,14 +102,11 @@ if __name__ == '__main__':
     matrix_3 = Matrix([[2, 2, 2], [2, 2, 2]])
     matrix_4 = Matrix([[3, 3], [3, 3], [3, 3]])
 
-    # print(matrix_1 + matrix_2)
-    # print(matrix_1 + matrix_4)
-    # print(matrix_3 * matrix_4)
-    # print(matrix_4 * matrix_2)
-    # print(matrix_1 == matrix_2)
-    # print(matrix_3 + matrix_4)
-    # print(matrix_3 == matrix_2)
-    parser = argparse.ArgumentParser(description="Операции с матрицами: сравнение(==), сложение(+), умножение(*)")
-    parser.add_argument("param", metavar="matrix_1 sign matrix_2", nargs=3, help="Введите matrix_1 знак matrix_2 через пробел")
-    args = parser.parse_args()
-    print(*args.param)
+    print(matrix_1 + matrix_2)
+    print(matrix_1 + matrix_4)
+    print(matrix_3 * matrix_4)
+    print(matrix_4 * matrix_2)
+    print(matrix_1 == matrix_2)
+    print(matrix_3 + matrix_4)
+    print(matrix_3 == matrix_2)
+    

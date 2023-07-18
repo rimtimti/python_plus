@@ -4,9 +4,7 @@
 
 
 def gen_num() -> print:
-    temp = (i for i in range(0, 101, 2) if i // 10 + i % 10 != 8)
-    for i in temp:
-        print(i)
+    return [i for i in range(0, 101, 2) if i // 10 + i % 10 != 8]
 
 
-gen_num()
+print(gen_num())
