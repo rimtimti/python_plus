@@ -12,12 +12,14 @@ import defs
 MIN_NUMBER = 1
 MAX_NUMBER = 999
 
-number = defs.get_natural_int_between_number(f'Введите число от {MIN_NUMBER} до {MAX_NUMBER}: ', MIN_NUMBER, MAX_NUMBER)
+number = defs.get_natural_int_between_number(
+    f"Введите число от {MIN_NUMBER} до {MAX_NUMBER}: ", MIN_NUMBER, MAX_NUMBER
+)
 match len(str(number)):
     case 1:
-        result = f'Вы ввели цифру. Квадрат этого числа равен: {number ** 2}'
+        result = f"Вы ввели цифру. Квадрат этого числа равен: {number ** 2}"
     case 2:
-        result = f'Вы ввели двузначное число. Произведение цифр этого числа равно: {(number % 10) * (number // 10)}'
+        result = f"Вы ввели двузначное число. Произведение цифр этого числа равно: {(number % 10) * (number // 10)}"
     case 3:
-        result = f'Вы ввели трёхзначное число. Зеркальное отображение цифр этого числа равно: {int(str(number)[::-1])}'
+        result = f"Вы ввели трёхзначное число. Зеркальное отображение цифр этого числа равно: {int(str(number)[::-1])}"
 print(result)

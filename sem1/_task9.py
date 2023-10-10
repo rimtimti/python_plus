@@ -7,5 +7,5 @@ MIN_NUMBER = 2
 MAX_NUMBER = 10
 STEP = 4
 
-print('\n\t\t    ТАБЛИЦА УМНОЖЕНИЯ\n')
+print("\n\t\t    ТАБЛИЦА УМНОЖЕНИЯ\n")
 defs.view_table_multiplication(START, FINISH, MIN_NUMBER, MAX_NUMBER, STEP)

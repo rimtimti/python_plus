@@ -4,9 +4,14 @@
 import defs
 
 MIN_NUMBER = 0
-MAX_NUMBER = 2147483647
+MAX_NUMBER = 2_147_483_647
 SYSTEM = 16
 
-number = defs.get_natural_int_between_number(f'Введите число от {MIN_NUMBER} до {MAX_NUMBER}: ', MIN_NUMBER, MAX_NUMBER)
+number = defs.get_natural_int_between_number(
+    f"Введите число от {MIN_NUMBER} до {MAX_NUMBER}: ", MIN_NUMBER, MAX_NUMBER
+)
 
-print(f'Число {number} в системе счисления {SYSTEM} = {defs.convert_number_to_number_system(number, SYSTEM)}', f'через встроенную функцию = {hex(number)[2:]}')
+print(
+    f"Число {number} в системе счисления {SYSTEM} = {defs.convert_number_to_number_system(number, SYSTEM)}",
+    f"через встроенную функцию = {hex(number)[2:]}",
+)

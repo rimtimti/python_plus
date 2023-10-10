@@ -8,19 +8,21 @@ import defs
 
 SIZE = 3
 
-array = defs.get_array_float_number_required_size('Введите стороны треугольника через запятую: ', SIZE)
-result = 'Этот треугольник '
+array = defs.get_array_float_number_required_size(
+    "Введите стороны треугольника через запятую: ", SIZE
+)
+result = "Этот треугольник "
 
 for i in range(len(array)):
-    if array[i] >= (sum(array) - array [i]):
-        result += 'не существует.'
+    if array[i] >= (sum(array) - array[i]):
+        result += "не существует."
         break
 else:
     match len(set(array)):
         case 1:
-            result += 'равносторонний'
+            result += "равносторонний"
         case 2:
-            result += 'равнобедренный'
+            result += "равнобедренный"
         case 3:
-            result += 'разносторонний'
+            result += "разносторонний"
 print(result)

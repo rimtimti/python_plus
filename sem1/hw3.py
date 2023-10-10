@@ -12,17 +12,21 @@ UPPER_LIMIT = 1000
 COUNTER = 10
 
 number = randint(LOWER_LIMIT, UPPER_LIMIT)
-print(f'Попробуйте угадать число от {LOWER_LIMIT} до {UPPER_LIMIT}, которое загадал компьютер.')
+print(
+    f"Попробуйте угадать число от {LOWER_LIMIT} до {UPPER_LIMIT}, которое загадал компьютер."
+)
 while COUNTER != 0:
-    print(f'У вас осталось {COUNTER} попыток.')
-    user_number = defs.get_natural_int_between_number(f'Введите число от {LOWER_LIMIT} до {UPPER_LIMIT}: ', LOWER_LIMIT, UPPER_LIMIT)
+    print(f"У вас осталось {COUNTER} попыток.")
+    user_number = defs.get_natural_int_between_number(
+        f"Введите число от {LOWER_LIMIT} до {UPPER_LIMIT}: ", LOWER_LIMIT, UPPER_LIMIT
+    )
     if user_number < number:
-        print('Вы ввели число меньше загаданного.')
+        print("Вы ввели число меньше загаданного.")
     elif user_number > number:
-        print('Вы ввели число больше загаданного.')
+        print("Вы ввели число больше загаданного.")
     else:
-        print(f'Вы угадали, это число {number}.')
+        print(f"Вы угадали, это число {number}.")
         break
     COUNTER -= 1
     if COUNTER == 0:
-        print(f'К сожалению, ваши попытки закончились, это было число {number}.')
+        print(f"К сожалению, ваши попытки закончились, это было число {number}.")

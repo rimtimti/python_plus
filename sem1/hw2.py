@@ -5,17 +5,21 @@
 import defs
 
 MIN_NUMBER = 1
-MAX_NUMBER = 100000
+MAX_NUMBER = 100_000
 
-number = defs.get_natural_int_between_number(f'Введите натуральное число от {MIN_NUMBER} до {MAX_NUMBER}: ', MIN_NUMBER, MAX_NUMBER)
+number = defs.get_natural_int_between_number(
+    f"Введите натуральное число от {MIN_NUMBER} до {MAX_NUMBER}: ",
+    MIN_NUMBER,
+    MAX_NUMBER,
+)
 array = defs.get_multipliers_number(number)
 
 match len(array):
     case 1:
-        result = 'Число 1 не имеет простых делителей и не является ни простым, ни составным числом.'
+        result = "Число 1 не имеет простых делителей и не является ни простым, ни составным числом."
     case 2:
-        result = 'Число простое.'
+        result = "Число простое."
     case _:
-        result = 'Число составное.'
+        result = "Число составное."
 
 print(result)
