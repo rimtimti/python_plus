@@ -3,9 +3,9 @@
 
 
 def task_4(array: list[int]) -> list[int]:
-    '''
+    """
     Получает массив и удаляет из него все элементы, которые встречаются дважды
-    '''
+    """
     # for item in set(array):
     #     count = array.count(item)
     #     if count > 1:

@@ -3,9 +3,9 @@
 
 
 def get_duplicate_elements(array: list[int]) -> list[int]:
-    '''
+    """
     Выдает список повторяющихся элементов списка
-    '''
+    """
     return [i for i in set(array) if array.count(i) > 1]
 
 

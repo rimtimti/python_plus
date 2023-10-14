@@ -1,6 +1,7 @@
 # Напишите программу, которая принимает две строки вида “a/b” — дробь с числителем и знаменателем.
 # Программа должна возвращать сумму и произведение дробей.
 # Для проверки своего кода используйте модуль fractions.
+# Сделал все 4 математических действия
 
 import fractions
 import math
@@ -12,7 +13,10 @@ def get_str_fraction(text: str) -> list[int]:
     """
     try:
         array = input(text).strip().split("/")
-        if len(array) == 2:
+        if int(array[1]) == 0 or int(array[0]) == 0:
+            print("Знаменатель или числитель дроби не должен быть равен 0 !!!")
+            return get_str_fraction(text)
+        elif len(array) == 2:
             if all(map(lambda x: int(x), array)):
                 array = [int(x) for x in array]
                 return cut_fraction(array)
@@ -32,6 +36,22 @@ def cut_fraction(array: list[int, int]) -> list[int, int]:
         return [int(x / math.gcd(array[0], array[1])) for x in array]
     else:
         return array
+
+
+def get_sign(text: str) -> str:
+    """
+    Просит у пользователя ввести математический знак, проверяет ввод, возвращает его
+    """
+    try:
+        sign = input(text)
+        if sign in "+-*/":
+            return sign
+        else:
+            print("Неверный ввод!!!")
+            return get_sign(text)
+    except ValueError:
+        print("Неверный ввод!!!")
+        return get_sign(text)
 
 
 def sum_fraction(array_1: list[int, int], array_2: list[int, int]) -> list[int, int]:
@@ -73,17 +93,33 @@ def print_answer(
     )
 
 
-print(
-    "Программа просит ввести 2 дроби вида a/b. Затем выводит сумму и произведение этих дробей."
-)
-arr_1 = get_str_fraction("Введите первую дробь вида a/b: ")
-arr_2 = get_str_fraction("Введите вторую дробь вида a/b: ")
+def run():
+    print(
+        "Программа просит ввести 2 дроби вида a/b и математический знак. Затем выводит результат вычисления двумя способами."
+    )
+    arr_1 = get_str_fraction("Введите первую дробь вида a/b: ")
+    sign = get_sign("Введите математический знак ( +, -, *, / ): ")
+    arr_2 = get_str_fraction("Введите вторую дробь вида a/b: ")
+    f1 = fractions.Fraction(arr_1[0], arr_1[1])
+    f2 = fractions.Fraction(arr_2[0], arr_2[1])
+    match sign:
+        case "+":
+            result = sum_fraction(arr_1, arr_2)
+            result_fraction = f1 + f2
+        case "-":
+            result_fraction = f1 - f2
+            arr_2[0] *= -1
+            result = sum_fraction(arr_1, arr_2)
+            arr_2[0] *= -1
+        case "*":
+            result = multypl_fraction(arr_1, arr_2)
+            result_fraction = f1 * f2
+        case "/":
+            result = multypl_fraction(arr_1, arr_2[::-1])
+            result_fraction = f1 / f2
+    return print_answer(arr_1, arr_2, sign, result), print(
+        "Проверка с помощью fractions:", result_fraction
+    )
 
-print_answer(arr_1, arr_2, "+", sum_fraction(arr_1, arr_2))
-print_answer(arr_1, arr_2, "*", multypl_fraction(arr_1, arr_2))
 
-print("\nПроверка с помощью fractions:")
-f1 = fractions.Fraction(arr_1[0], arr_1[1])
-f2 = fractions.Fraction(arr_2[0], arr_2[1])
-print(f"{f1} + {f2} = {f1 + f2}")
-print(f"{f1} * {f2} = {f1 * f2}")
+run()

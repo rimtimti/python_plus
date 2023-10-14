@@ -4,21 +4,21 @@
 
 
 def get_uniq_elements_1(array: list[int]) -> list[int]:
-    '''
+    """
     Выдает уникальные элементы списка (длинное решение)
-    '''
+    """
     res = []
     for i in range(len(array)):
         if array[i] not in res:
             res.append(array[i])
-    return res
+    return sorted(res)
 
 
 def get_uniq_elements_2(array: list[int]) -> list[int]:
-    '''
+    """
     Выдает уникальные элементы списка (коротрое решение)
-    '''
-    return list(set(array))
+    """
+    return sorted(list(set(array)))
 
 
 arr = [22, 23, 13, 23, 22, 25, 16, 46, 25, 13]
