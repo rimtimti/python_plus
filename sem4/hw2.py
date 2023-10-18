@@ -2,6 +2,7 @@
 # где ключ — значение переданного аргумента, а значение — имя аргумента.
 # Если ключ не хешируем, используйте его строковое представление.
 
+
 def exchange_key_and_value(**kwargs):
     result = dict()
     for key, value in kwargs.items():
@@ -11,6 +12,8 @@ def exchange_key_and_value(**kwargs):
     return result
 
 
-print(exchange_key_and_value(language='Python',
-                             variable='x',
-                             function=['set', 'zip', 'filter']))
+print(
+    exchange_key_and_value(
+        language="Python", variable="x", function=["set", "zip", "filter"]
+    )
+)

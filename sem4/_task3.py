@@ -3,16 +3,16 @@
 # Диапазон пар ключ-значение от наименьшего из введённых пользователем чисел до наибольшего включительно
 
 
-def unicode_from_to(text: str) -> dict[str: int]:
-    '''
+def unicode_from_to(text: str) -> dict[str:int]:
+    """
     Принимает 2 числа через пробел. Делает словарь, где ключом будет символ из Unicode, а значением - целое число.
     Диапазон пар ключ-значение от наименьшего из введённых пользователем чисел до наибольшего включительно.
-    '''
+    """
     result = {}
     array = [int(i) for i in text.split()]
     for i in range(min(array), max(array) + 1):
-        result [chr(i)] = i
+        result[chr(i)] = i
     return result
 
 
-print(unicode_from_to('666 555'))
+print(unicode_from_to("666 555"))

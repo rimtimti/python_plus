@@ -3,15 +3,22 @@
 
 
 def check_profit(company: dict[str:[int]]) -> bool:
-    '''
+    """
     Все компании с прибылью или нет?
-    '''
-    for val in company.values():
-        if sum(val) < 0:
-            return False
-    return True
+    """
+    # for value in company.values():
+    #     if sum(value) < 0:
+    #         return False
+    # return True
+    return all(map(lambda x: sum(x), company.values()))
 
 
-print(check_profit({'филиал1': [5000, -20000, 50000, -10000],
-                    'филиал2': [30000, -5000, -20000, -4000],
-                    'филиал3': [10000, 10000, -30000, 20000]}))
+print(
+    check_profit(
+        {
+            "филиал1": [5000, -20000, 50000, -10000],
+            "филиал2": [30000, -5000, -20000, -4000],
+            "филиал3": [10000, 10000, -30000, 20000],
+        }
+    )
+)
