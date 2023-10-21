@@ -4,11 +4,11 @@
 # ✔первое число является значением для первого ключа.
 # ✔четвертое и все возможные последующие хранятся в кортеже как значения второго ключа.
 
-text = '9/15/67/1/19/6/3'
+text = "9/15/67/1/19/6/3"
 
 
 def task_1(text: str) -> dict[int:int]:
-    first, second, third, *other = (int(i) for i in text.split('/'))
+    first, second, third, *other = (int(i) for i in text.split("/"))
     return {second: first, third: tuple(other)}
 
 

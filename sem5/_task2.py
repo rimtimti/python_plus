@@ -3,8 +3,8 @@
 # ✔ Напишите преобразование в одну строку.
 
 
-def from_str_to_dict(text_2: str) -> dict[str:int]:
-    return {k: ord(k) for k in text_2}
+def from_str_to_dict(text: str) -> dict[str:int]:
+    return {k: ord(k) for k in text}
 
 
-print(from_str_to_dict('sdsdsdddfgdfgdfgdfgasdgasgas'))
+print(from_str_to_dict("sdsdsdddfgdfgdfgdfgasdgasgas"))

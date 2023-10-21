@@ -4,10 +4,11 @@
 
 FINISH = 45
 
+
 def simple_numbers(finish: int):
-    '''
+    """
     Выдает простые числа от 2 и до finish по одному
-    '''
+    """
     for i in range(2, finish + 1):
         simple = True
         for j in range(2, i - 1):
