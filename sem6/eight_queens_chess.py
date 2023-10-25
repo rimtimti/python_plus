@@ -9,13 +9,14 @@
 # Проверяйте различный случайные варианты и выведите 4 успешных расстановки.
 
 import random
+
 START = 1
 FINISH = 8
 
 
 def check_eight_queens(queens: list[(int, int)]) -> bool:
     if len(queens) != FINISH:
-        return f'Неверный ввод числа ферзей на доске.'
+        return f"Неверный ввод числа ферзей на доске."
     x = list(i[0] for i in queens)
     y = list(i[1] for i in queens)
 

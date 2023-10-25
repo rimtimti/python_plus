@@ -11,16 +11,13 @@
 # Для преобразования строковых аргументов командной строки в числовые параметры используйте генераторное выражение
 
 import random as rnd
-from sys import argv
 from puzzle_mystery import puzzle as p
-from puzzle_mistery_with_dict import new_puzzle as new_p
-from puzzle_mistery_with_dict import show_statistic
-import leap_year
+from puzzle_mistery_with_dict import new_puzzle as new_p, show_statistic
 
 
 def gen_fnc(low: int = 1, height: int = 2, try_count: int = 5) -> bool:
     result = False
-    num = rnd.randint(low, height+1)
+    num = rnd.randint(low, height + 1)
     search_count = 0
     while search_count < try_count:
         ask_value = int(input(f"Введите число от {low} до {height}: "))
