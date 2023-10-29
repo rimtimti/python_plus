@@ -7,7 +7,7 @@
 # ✔ максимальное число случайных байт, записанных в файл, по умолчанию 4096
 # ✔ количество файлов, по умолчанию 42
 # ✔ Имя файла и его размер должны быть в рамках переданного диапазона.
-from random import randint, choice
+from random import randint
 from pathlib import Path
 import os
 
