@@ -6,19 +6,19 @@
 # При перезапуске функции уже записанные в файл данные должны сохраняться.
 import json
 from pathlib import Path
-import os
+
 
 def _add_data(name: str, personal_id: int, level: int) -> dict[int, dict[str, int]]:
     return {level: {personal_id: name}}
 
 
 def _write_json(data: dict, file: str) -> None:
-    with open(file, 'w+', encoding='utf-8') as f:
+    with open(file, "w+", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def _read_json(file: str):
-    with open(file, "r", encoding='utf-8') as f:
+    with open(file, "r", encoding="utf-8") as f:
         try:
             return json.load(f)
         except:
@@ -37,13 +37,13 @@ def ui(file: str):
         name = input("Введите имя: ")
         level = input("Введите уровень доступа: ")
         continue_program = input("Хотите продолжить? да/нет: ")
-        if continue_program == 'нет':
+        if continue_program == "нет":
             exit_program = False
-        res_dict = (_add_data(name, personal_id, level))
+        res_dict = _add_data(name, personal_id, level)
         if level in base_dict.keys():
             base_dict[level].update({personal_id: name})
         else:
             base_dict.update(res_dict)
     print(base_dict)
-    
+
     _write_json(base_dict, file)
